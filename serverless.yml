@@ -23,7 +23,7 @@ functions:
     handler: src/lambda/auth/login.handler
     events:
       - http:
-          path: /auth
+          path: /auth/login
           method: POST
   register:
     handler: src/lambda/auth/register.handler
