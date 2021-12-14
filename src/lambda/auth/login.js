@@ -1,6 +1,8 @@
 require("dotenv").config();
+const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const { Pool } = require("pg");
+
 const client = new Pool({
   host: process.env.HOST,
   port: process.env.PORT,
@@ -43,12 +45,13 @@ const login = async (event) => {
         headers,
       };
     }
-
+    const token = jwt.sign({ id: user.rows[0].id }, "secret");
     return {
       statusCode: 200,
       body: JSON.stringify({
         data: user.rows[0].username,
         message: "success",
+        token,
       }),
       headers,
     };
